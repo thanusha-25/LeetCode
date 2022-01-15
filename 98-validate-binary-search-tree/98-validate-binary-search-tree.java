@@ -14,22 +14,28 @@
  * }
  */
 class Solution {
-    public void inorder(TreeNode root, ArrayList<Integer> list)
+     boolean isBSTUtil(TreeNode node, int min, int max)
     {
-        if(root==null)
-            return;
-        inorder(root.left,list);
-        list.add(root.val);
-        inorder(root.right,list);
+        /* an empty tree is BST */
+        if (node == null)
+            return true;
+ 
+        /* false if this node violates the min/max constraints */
+        if (node.val < min || node.val > max)
+            return false;
+ 
+        /* otherwise check the subtrees recursively
+        tightening the min/max constraints */
+        // Allow only distinct values
+         if(node.left!=null && node.left.val>=node.val)
+             return false;
+         if(node.right!=null && node.right.val<=node.val)
+             return false;
+        return (isBSTUtil(node.left, min, node.val-1) &&
+                isBSTUtil(node.right, node.val+1, max));
     }
-    public boolean isValidBST(TreeNode root) {
-        ArrayList<Integer> list=new ArrayList<Integer>();
-        inorder(root,list);
-        for(int i=0;i+1<list.size();i++)
-        {
-            if(list.get(i)>=list.get(i+1))
-                return false;
-        }
-        return true;
+     public boolean isValidBST(TreeNode root) {
+        return  isBSTUtil(root, Integer.MIN_VALUE,
+                               Integer.MAX_VALUE);
     }
 }
