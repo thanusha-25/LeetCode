@@ -14,14 +14,7 @@
  * }
  */
 class Solution {
-    // public int find(TreeNode root)
-    // {
-    //     if(root.left!=null)
-    //         left=minDepth(root.left)+1;
-    //     if(root.right!=null)
-    //         right=minDepth(root.right)+1;
-    // }
-    public int minDepth(TreeNode root) {
+   public int minDepth(TreeNode root) {
        if(root==null)
            return 0;
         if(root.left==null && root.right==null)
